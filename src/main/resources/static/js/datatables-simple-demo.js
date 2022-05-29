@@ -119,10 +119,10 @@ async function consultarTicket(id){
                                              '</thead>'+
                                              '<tbody>'+
                                                      '<tr>'+
-                                                         '<td>'+ticketSelect.idTicket+'</td>'+
-                                                         '<td>'+ticketSelect.numeroIdentificacionPersona2+'</td>'+
-                                                         '<td>'+ticketSelect.fechaIngreso+'</td>'+
-                                                         '<td>'+ticketSelect.fechaUltimaActualizacion+'</td>'+
+                                                         '<td id="txtIdTicket">'+ticketSelect.idTicket+'</td>'+
+                                                         '<td id="txtNumeroIdentificacionPersona2">'+ticketSelect.numeroIdentificacionPersona2+'</td>'+
+                                                         '<td id="txtFechaIngreso">'+ticketSelect.fechaIngreso+'</td>'+
+                                                         '<td id="txtFechaUltimaActualizacion">'+ticketSelect.fechaUltimaActualizacion+'</td>'+
                                              '</tbody>'+
                                      '</table>'+
                                 '</div>'+
@@ -188,5 +188,29 @@ async function consultarTicket(id){
 
 
 async function actualizarDatosTicket(){
-        location.reload();
+
+    let datosTickete = {};
+    datosTickete.idTicket = document.getElementById('txtIdTicket').innerText;
+    datosTickete.numeroIdentificacionPersona2 = document.getElementById('txtNumeroIdentificacionPersona2').innerText;
+    datosTickete.tituloServicio = document.getElementById('txtTituloServicio').value;
+    datosTickete.descripcionServicio = document.getElementById('txtDescripcionServicio').value;
+    datosTickete.fechaIngreso = document.getElementById('txtFechaIngreso').innerText;
+    datosTickete.nivelPrioridad = document.getElementById('txtNivelPrioridad').value;
+    datosTickete.descripcionSolucion = document.getElementById('txtDescripcionSolucion').value;
+    datosTickete.estadoTicket = document.getElementById('txtEstadoTicket').value;
+    datosTickete.notaAdjunta = document.getElementById('txtNotaAdjunta').value;
+    datosTickete.fechaUltimaActualizacion = new Date().toLocaleDateString();
+    datosTickete.valorServicio = document.getElementById('txtValorServicio').value;
+
+    const peticion = await fetch('actualizarTickete', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(datosTickete)
+      });
+
+      location.reload();
+      alert('Ticket actualizado exitosamente');
 }

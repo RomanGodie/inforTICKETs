@@ -74,7 +74,7 @@ public class TicketeDaoImp implements TicketeDao{
     @Override
     public int updateTickete(Tickete tickete) {
         String consulta = "UPDATE tickete SET "
-                +"tituloServicio = ?, descripcionServicio = ? "
+                +"tituloServicio = ?, descripcionServicio = ?, "
                 +"nivelPrioridad = ?, descripcionSolucion = ?, estadoTicket = ?, "
                 +"notaAdjunta = ?, fechaUltimaActualizacion = ?, valorServicio = ? "
                 +"WHERE idTicket = ?";
