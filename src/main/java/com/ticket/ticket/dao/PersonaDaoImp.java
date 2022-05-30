@@ -41,6 +41,16 @@ public class PersonaDaoImp implements PersonaDao{
     }
 
     @Override
+    public boolean readUnaPersonaPorNumeroIdentificacionRetornaCuantosHay(int numeroIdentificacionPersona){
+        String consulta = "SELECT COUNT(numeroIdentificacionPersona)"+
+                "FROM persona WHERE numeroIdentificacionPersona = ?";
+        int existe = jdbcTemplate.queryForObject(consulta,
+                new Object[]{numeroIdentificacionPersona},
+                Integer.class);
+        return (existe >= 1);
+    }
+
+    @Override
     public int updatePersona(Persona persona) {
         String consulta = "UPDATE persona SET numeroIdentificacionPersona = ?, "
                 +"nombresYApellidos = ?, correoElectronico = ?, direccionResidencia = ?, "

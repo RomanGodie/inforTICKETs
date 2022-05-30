@@ -19,28 +19,39 @@ public class ControladorTicket {
     @Autowired
     private TicketeDao ticketeDao;
 
-    @RequestMapping(value = "persona/{numeroIdentificacionPersona}", method = RequestMethod.GET)
-    public Persona getPersona(@PathVariable int numeroIdentificacionPersona){
-        return personaDao.readUnaPersonaPorNumeroIdentificacion(numeroIdentificacionPersona);
+    @RequestMapping(value = "nuevaPersona")
+    public void crearUnaPersona(@RequestBody Persona persona){
+
     }
 
-    @RequestMapping(value = "actualizarPersona", method = RequestMethod.POST)
-    public void setPersona(@RequestBody Persona persona){
-        int personaActualizada = personaDao.updatePersona(persona);
+    @RequestMapping(value = "nuevoTicket")
+    public void crearUnTicket(@RequestBody Tickete tickete){
+
+    }
+
+    @RequestMapping(value = "persona/{numeroIdentificacionPersona}", method = RequestMethod.GET)
+    public Persona obtenerUnaPersona(@PathVariable int numeroIdentificacionPersona){
+        return (personaDao.readUnaPersonaPorNumeroIdentificacionRetornaCuantosHay(numeroIdentificacionPersona))?
+                (personaDao.readUnaPersonaPorNumeroIdentificacion(numeroIdentificacionPersona)):null;
     }
 
     @RequestMapping(value = "ticket/{idTicket}")
-    public Tickete getTickete(@PathVariable int idTicket){
+    public Tickete obtenerUnTickete(@PathVariable int idTicket){
         return ticketeDao.readUnTicketePorIdTickete(idTicket);
     }
 
-    @RequestMapping(value = "actualizarTickete")
-    public void setTickete(@RequestBody Tickete tickete){
-        int ticketeActualizado = ticketeDao.updateTickete(tickete);
+    @RequestMapping(value = "tickets")
+    public List<Tickete> obtenerTodosLosTickets(){
+        return ticketeDao.readTodosLosTicketesEnBaseDatosDirecto();
     }
 
-    @RequestMapping(value = "tickets")
-    public List<Tickete> getTickets(){
-        return ticketeDao.readTodosLosTicketesEnBaseDatosDirecto();
+    @RequestMapping(value = "actualizarPersona", method = RequestMethod.POST)
+    public void actualizarPersona(@RequestBody Persona persona){
+        int personaActualizada = personaDao.updatePersona(persona);
+    }
+
+    @RequestMapping(value = "actualizarTickete")
+    public void actualizarTickete(@RequestBody Tickete tickete){
+        int ticketeActualizado = ticketeDao.updateTickete(tickete);
     }
 }
