@@ -1,14 +1,14 @@
 package com.ticket.ticket.modelo;
 
 public class Persona {
-    private int numeroIdentificacionPersona;
+    private long numeroIdentificacionPersona;
     private String nombresYApellidos;
     private String correoElectronico;
     private String direccionResidencia;
     private String numeroTelefonico1;
     private String numeroTelefonico2;
 
-    public Persona(int numeroIdentificacionPersona, String nombresYApellidos,
+    public Persona(long numeroIdentificacionPersona, String nombresYApellidos,
                    String correoElectronico, String direccionResidencia,
                    String numeroTelefonico1, String numeroTelefonico2) {
         this.numeroIdentificacionPersona = numeroIdentificacionPersona;
@@ -19,11 +19,11 @@ public class Persona {
         this.numeroTelefonico2 = numeroTelefonico2;
     }
 
-    public int getNumeroIdentificacionPersona() {
+    public long getNumeroIdentificacionPersona() {
         return numeroIdentificacionPersona;
     }
 
-    public void setNumeroIdentificacionPersona(int numeroIdentificacionPersona) {
+    public void setNumeroIdentificacionPersona(long numeroIdentificacionPersona) {
         this.numeroIdentificacionPersona = numeroIdentificacionPersona;
     }
 

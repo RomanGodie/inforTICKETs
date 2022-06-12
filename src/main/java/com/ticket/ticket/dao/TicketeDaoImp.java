@@ -3,9 +3,12 @@ package com.ticket.ticket.dao;
 import com.ticket.ticket.modelo.Tickete;
 import lombok.AllArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.PreparedStatement;
 import java.util.List;
 
 @Repository
@@ -20,7 +23,7 @@ public class TicketeDaoImp implements TicketeDao{
         String consulta = "INSERT INTO tickete "
                 +"(numeroIdentificacionPersona2, tituloServicio, descripcionServicio, "
                 +"fechaIngreso, nivelPrioridad, descripcionSolucion, estadoTicket, notaAdjunta, fechaUltimaActualizacion, "
-                +"valorServicio) values (?,?,?,?,?,?,?,?,?)";
+                +"valorServicio) values (?,?,?,?,?,?,?,?,?,?)";
         jdbcTemplate.update(consulta,
                 tickete.getNumeroIdentificacionPersona2(),
                 tickete.getTituloServicio(),
@@ -35,13 +38,36 @@ public class TicketeDaoImp implements TicketeDao{
     }
 
     @Override
+    public long createTicketRetornandoId(Tickete tickete){
+        String consulta = "INSERT INTO tickete "
+                +"(numeroIdentificacionPersona2, tituloServicio, descripcionServicio, "
+                +"fechaIngreso, nivelPrioridad, descripcionSolucion, estadoTicket, notaAdjunta, fechaUltimaActualizacion, "
+                +"valorServicio) values (?,?,?,?,?,?,?,?,?,?)";
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(connection -> {
+            PreparedStatement stmt = connection.prepareStatement(consulta, new String[]{"idTicket"});
+            stmt.setLong(1,tickete.getNumeroIdentificacionPersona2());
+            stmt.setString(2,tickete.getTituloServicio());
+            stmt.setString(3, tickete.getDescripcionServicio());
+            stmt.setString(4, tickete.getFechaIngreso());
+            stmt.setString(5, tickete.getNivelPrioridad());
+            stmt.setString(6, tickete.getDescripcionSolucion());
+            stmt.setString(7, tickete.getEstadoTicket());
+            stmt.setString(8, tickete.getNotaAdjunta());
+            stmt.setString(9, tickete.getFechaUltimaActualizacion());
+            stmt.setInt(10, tickete.getValorServicio());
+            return stmt;},keyHolder);
+        return keyHolder.getKey().intValue();
+    }
+
+    @Override
     public Tickete readUnTicketePorIdTickete(int idTicket) {
         String consulta = "SELECT * FROM tickete WHERE idTicket = ?";
         return jdbcTemplate.queryForObject(consulta,
                 new Object[]{idTicket},
                 (rs, rowNum) -> new Tickete(
                         rs.getInt("idTicket"),
-                        rs.getInt("numeroIdentificacionPersona2"),
+                        rs.getLong("numeroIdentificacionPersona2"),
                         rs.getString("tituloServicio"),
                         rs.getString("descripcionServicio"),
                         rs.getString("fechaIngreso"),
@@ -59,7 +85,7 @@ public class TicketeDaoImp implements TicketeDao{
         return jdbcTemplate.query(consulta,(rs, rowNum) ->
                 new Tickete(
                         rs.getInt("idTicket"),
-                        rs.getInt("numeroIdentificacionPersona2"),
+                        rs.getLong("numeroIdentificacionPersona2"),
                         rs.getString("tituloServicio"),
                         rs.getString("descripcionServicio"),
                         rs.getString("fechaIngreso"),

@@ -2,7 +2,7 @@ package com.ticket.ticket.modelo;
 
 public class Tickete {
     private int idTicket;
-    private int numeroIdentificacionPersona2;
+    private long numeroIdentificacionPersona2;
     private String tituloServicio;
     private String descripcionServicio;
     private String fechaIngreso;
@@ -12,7 +12,7 @@ public class Tickete {
     private String notaAdjunta;
     private String fechaUltimaActualizacion;
     private int valorServicio;
-    public Tickete(int idTicket, int numeroIdentificacionPersona2, String tituloServicio,
+    public Tickete(int idTicket, long numeroIdentificacionPersona2, String tituloServicio,
                    String descripcionServicio, String fechaIngreso, String nivelPrioridad,
                    String descripcionSolucion, String estadoTicket, String notaAdjunta,
                    String fechaUltimaActualizacion, int valorServicio) {
@@ -37,11 +37,11 @@ public class Tickete {
         this.idTicket = idTicket;
     }
 
-    public int getNumeroIdentificacionPersona2() {
+    public long getNumeroIdentificacionPersona2() {
         return numeroIdentificacionPersona2;
     }
 
-    public void setNumeroIdentificacionPersona2(int numeroIdentificacionPersona2) {
+    public void setNumeroIdentificacionPersona2(long numeroIdentificacionPersona2) {
         this.numeroIdentificacionPersona2 = numeroIdentificacionPersona2;
     }
 

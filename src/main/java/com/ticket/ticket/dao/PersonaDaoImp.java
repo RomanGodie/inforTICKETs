@@ -1,10 +1,13 @@
 package com.ticket.ticket.dao;
 
 import com.ticket.ticket.modelo.Persona;
+import com.ticket.ticket.modelo.Tickete;
 import lombok.AllArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Repository
 @Transactional
@@ -27,12 +30,12 @@ public class PersonaDaoImp implements PersonaDao{
     }
 
     @Override
-    public Persona readUnaPersonaPorNumeroIdentificacion(int numeroIdentificacionPersona) {
+    public Persona readUnaPersonaPorNumeroIdentificacion(long numeroIdentificacionPersona) {
         String consulta = "SELECT * FROM persona WHERE numeroIdentificacionPersona = ?";
         return jdbcTemplate.queryForObject(consulta,
                 new Object[]{numeroIdentificacionPersona},
                 (rs, rowNum) -> new Persona(
-                        rs.getInt("numeroIdentificacionPersona"),
+                        rs.getLong("numeroIdentificacionPersona"),
                         rs.getString("nombresYApellidos"),
                         rs.getString("correoElectronico"),
                         rs.getString("direccionResidencia"),
@@ -41,13 +44,26 @@ public class PersonaDaoImp implements PersonaDao{
     }
 
     @Override
-    public boolean readUnaPersonaPorNumeroIdentificacionRetornaCuantosHay(int numeroIdentificacionPersona){
+    public boolean readUnaPersonaPorNumeroIdentificacionRetornaCuantosHay(long numeroIdentificacionPersona){
         String consulta = "SELECT COUNT(numeroIdentificacionPersona)"+
                 "FROM persona WHERE numeroIdentificacionPersona = ?";
         int existe = jdbcTemplate.queryForObject(consulta,
                 new Object[]{numeroIdentificacionPersona},
                 Integer.class);
         return (existe >= 1);
+    }
+
+    @Override
+    public List<Persona> readTodasLasPersonasEnBaseDatosDirecto() {
+        String consulta = "SELECT * FROM persona";
+        return jdbcTemplate.query(consulta,(rs, rowNum) ->
+                new Persona(
+                        rs.getLong("numeroIdentificacionPersona"),
+                        rs.getString("nombresYApellidos"),
+                        rs.getString("correoElectronico"),
+                        rs.getString("direccionResidencia"),
+                        rs.getString("numeroTelefonico1"),
+                        rs.getString("numeroTelefonico2")));
     }
 
     @Override

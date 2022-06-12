@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface TicketeDao {
     void createTickete(Tickete tickete);
+    long createTicketRetornandoId(Tickete tickete);
     Tickete readUnTicketePorIdTickete(int idTicket);
     List<Tickete> readTodosLosTicketesEnBaseDatosDirecto();
     int updateTickete(Tickete tickete);

@@ -21,16 +21,20 @@ public class ControladorTicket {
 
     @RequestMapping(value = "nuevaPersona")
     public void crearUnaPersona(@RequestBody Persona persona){
-
+        if(personaDao.readUnaPersonaPorNumeroIdentificacionRetornaCuantosHay(persona.getNumeroIdentificacionPersona())){
+            personaDao.updatePersona(persona);
+        }else{
+            personaDao.createPersona(persona);
+        }
     }
 
     @RequestMapping(value = "nuevoTicket")
-    public void crearUnTicket(@RequestBody Tickete tickete){
-
+    public long crearUnTicket(@RequestBody Tickete tickete){
+        return ticketeDao.createTicketRetornandoId(tickete);
     }
 
     @RequestMapping(value = "persona/{numeroIdentificacionPersona}", method = RequestMethod.GET)
-    public Persona obtenerUnaPersona(@PathVariable int numeroIdentificacionPersona){
+    public Persona obtenerUnaPersona(@PathVariable long numeroIdentificacionPersona){
         return (personaDao.readUnaPersonaPorNumeroIdentificacionRetornaCuantosHay(numeroIdentificacionPersona))?
                 (personaDao.readUnaPersonaPorNumeroIdentificacion(numeroIdentificacionPersona)):null;
     }
@@ -38,6 +42,11 @@ public class ControladorTicket {
     @RequestMapping(value = "ticket/{idTicket}")
     public Tickete obtenerUnTickete(@PathVariable int idTicket){
         return ticketeDao.readUnTicketePorIdTickete(idTicket);
+    }
+
+    @RequestMapping(value = "personas")
+    public List<Persona> obtenerTodasLasPersonas(){
+        return personaDao.readTodasLasPersonasEnBaseDatosDirecto();
     }
 
     @RequestMapping(value = "tickets")
