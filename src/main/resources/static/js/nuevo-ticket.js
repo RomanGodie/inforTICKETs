@@ -84,8 +84,6 @@ async function crearNuevoTicket(){
         console.log(idNuevoTicket);
 
         imprimirNuevoTicket(idNuevoTicket, fechaIngresoAlmacenada, tituloServicioAlmacenado, descripcionServicioAlmacenado);
-        //javascript:window.print();
-        alert('TICKET CREADO EXITOSAMENTE!!!');
         window.location.href = 'index.html';
     }else{
         alert('Los campos con * son obligatorios!!!!');
@@ -96,6 +94,7 @@ async function crearNuevoTicket(){
 function imprimirNuevoTicket(idNuevoTicket, fechaIngresoAlmacenada, tituloServicioAlmacenado, descripcionServicioAlmacenado){
     let impresionHTML = '<div>'
                             +'<h1>TICKET inforTIC`s</h1>'
+                            +'<h2>Carrera 13 #12-54, Celular 3022954849, Fijo 6022381434.</h2>'
                             +'<table id="datosPersonales" class="tabla">'
                                 +'<tr>'
                                     +'<td><b>Numero de ticket: </b></td>'
@@ -120,13 +119,13 @@ function imprimirNuevoTicket(idNuevoTicket, fechaIngresoAlmacenada, tituloServic
                        +'<div>'
                             +'<table id="datosServicio" class="tabla">'
                                 +'<tr>'
-                                    +'<td><b>Titulo del Servicio: </b></td>'
+                                    +'<td><b>TITULO DEL SERVICIO: </b></td>'
                                 +'</tr>'
                                 +'<tr>'
                                     +'<td>'+tituloServicioAlmacenado+'</td>'
                                 +'</tr>'
                                 +'<tr>'
-                                    +'<td><b>Descripcion del Servicio: </b></td>'
+                                    +'<td><b>DESCRIPCION DEL SERVICIO: </b></td>'
                                 +'</tr>'
                                 +'<tr>'
                                     +'<td>'+descripcionServicioAlmacenado+'</td>'

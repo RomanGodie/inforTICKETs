@@ -38,39 +38,6 @@ async function cargarTickets(){
       document.querySelector('#datatablesSimple1 tbody').outerHTML = listadoTicketsHtml;
 }
 
-async function cargarPersonas(){
-
-      const request = await fetch('personas', {
-        method: 'GET',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        }
-        //body: JSON.stringify({a: 1, b: 'Textual content'})
-      });
-      const personas = await request.json();
-
-      let listadoHtml = '';
-
-      for(let persona of personas){
-         let botonNumeroIdentificacionPersona = '<a href="#modalPersona" onclick="consultarPersona('
-                                      +ticket.numeroIdentificacionPersona2+')" class="btn btn-primary btn-sm" data-toggle="modal">'
-                                      + ticket.numeroIdentificacionPersona2 +'</a>';
-         let ticketHtml =  '<tr>'
-                             +'<td>'+ botonNumeroIdentificacionPersona +'</td>'
-                             +'<td>'+persona.nombresYApellidos+'</td>'
-                             +'<td>'+persona.correoElectronico+'</td>'
-                             +'<td>'+persona.direccionResidencia+'</td>'
-                             +'<td>'+persona.numeroTelefonico1+'</td>'
-                             +'<td>'+persona.numeroTelefonico2+'</td>'
-                           +'</tr>';
-         listadoHtml += ticketHtml;
-      }
-
-      console.log(personas);
-      document.querySelector('#dataTablesPersonas tbody').outerHTML = listadoHtml;
-}
-
 async function consultarPersona(id){
 
     const peticion1 = await fetch('persona/'+id, {
@@ -213,6 +180,15 @@ async function consultarTicket(id){
 
 async function actualizarDatosTicket(){
 
+    var idTicketAlmacenado = document.getElementById('txtIdTicket').innerText;
+    var numeroIdentificacionPersona2Almacenado = document.getElementById('txtNumeroIdentificacionPersona2').innerText;
+    var fechaIngresoAlmacenada = document.getElementById('txtFechaIngreso').innerText;
+    var fechaUltimaActualizacionAlmacenada = new Date().toLocaleDateString();
+    var tituloServicioAlmacenado = document.getElementById('txtTituloServicio').value;
+    var descripcionServicioAlmacenado = document.getElementById('txtDescripcionServicio').value;
+    var descripcionSolucionAlmacenada = document.getElementById('txtDescripcionSolucion').value;
+    var valorServicioAlmacenado = document.getElementById('txtValorServicio').value;
+
     let datosTickete = {};
     datosTickete.idTicket = document.getElementById('txtIdTicket').innerText;
     datosTickete.numeroIdentificacionPersona2 = document.getElementById('txtNumeroIdentificacionPersona2').innerText;
@@ -235,49 +211,58 @@ async function actualizarDatosTicket(){
         body: JSON.stringify(datosTickete)
       });
 
+      imprimirTicketDiligenciado(idTicketAlmacenado, numeroIdentificacionPersona2Almacenado, fechaIngresoAlmacenada,
+                                 fechaUltimaActualizacionAlmacenada, tituloServicioAlmacenado, descripcionServicioAlmacenado,
+                                 descripcionSolucionAlmacenada, valorServicioAlmacenado);
+
       location.reload();
-      alert('Ticket actualizado exitosamente');
 }
 
-/*function imprimirTicketDiligenciado(idNuevoTicket, fechaIngresoAlmacenada, tituloServicioAlmacenado, descripcionServicioAlmacenado){
+function imprimirTicketDiligenciado(idTicketAlmacenado, numeroIdentificacionPersona2Almacenado, fechaIngresoAlmacenada,
+                                      fechaUltimaActualizacionAlmacenada, tituloServicioAlmacenado, descripcionServicioAlmacenado,
+                                      descripcionSolucionAlmacenada, valorServicioAlmacenado){
     let impresionHTML = '<div>'
                             +'<h1>TICKET inforTIC`s</h1>'
-                            +'<table id="datosPersonales" class="tabla">'
+                            +'<h2>Carrera 13 #12-54, Celular 3022954849, Fijo 6022381434.</h2>'
+                            +'<table id="datosPersonalesTicketDiligenciado" class="tabla">'
                                 +'<tr>'
-                                    +'<td><b>Numero de ticket: </b></td>'
-                                    +'<td><b>'+idNuevoTicket+'</b></td>'
-                                    +'<td><b>Fecha de ingreso: </b></td>'
+                                    +'<th><b>Numero de ticket: </b></th>'
+                                    +'<th><b>Identificacion Cliente: </b></th>'
+                                    +'<th><b>Fecha de ingreso: </b></th>'
+                                    +'<th><b>Fecha ultima Actualizacion: </b></th>'
+                                +'</tr>'
+                                +'<tr>'
+                                    +'<td><b>'+idTicketAlmacenado+'</b></td>'
+                                    +'<td><b>'+numeroIdentificacionPersona2Almacenado+'</b></td>'
                                     +'<td><b>'+fechaIngresoAlmacenada+'</b></td>'
-                                +'</tr>'
-                                +'<tr>'
-                                    +'<td><b>Identificacion Cliente: </b></td>'
-                                    +'<td>'+numeroIdentificacionPersonaAlmacenado+'</td>'
-                                    +'<td><b>Nombre Completo: </b></td>'
-                                    +'<td>'+nombresYApellidosPersonaAlmacenada+'</td>'
-                                +'</tr>'
-                                +'<tr>'
-                                    +'<td><b>Numero Telefonico: </b></td>'
-                                    +'<td>'+numeroTelefonico1Almacenado+'</td>'
-                                    +'<td><b>Direccion Residencia: </b></td>'
-                                    +'<td>'+direccionResidenciaAlmacenada+'</td>'
+                                    +'<td>'+fechaUltimaActualizacionAlmacenada+'</td>'
                                 +'</tr>'
                             +'</table>'
                        +'</div>'
                        +'<div>'
-                            +'<table id="datosServicio" class="tabla">'
+                            +'<table id="datosServicioTicketDiligenciado" class="tabla">'
                                 +'<tr>'
-                                    +'<td><b>Titulo del Servicio: </b></td>'
+                                    +'<td><b>TITULO DEL SERVICIO: </b></td>'
                                 +'</tr>'
                                 +'<tr>'
                                     +'<td>'+tituloServicioAlmacenado+'</td>'
                                 +'</tr>'
                                 +'<tr>'
-                                    +'<td><b>Descripcion del Servicio: </b></td>'
+                                    +'<td><b>DESCRIPCION DEL SERVICIO: </b></td>'
                                 +'</tr>'
                                 +'<tr>'
                                     +'<td>'+descripcionServicioAlmacenado+'</td>'
                                 +'</tr>'
+                                +'<tr>'
+                                    +'<td><b>SOLUCION: </b></td>'
+                                +'</tr>'
+                                +'<tr>'
+                                    +'<td>'+descripcionSolucionAlmacenada+'</td>'
+                                +'</tr>'
                             +'</table>'
+                       +'</div>'
+                       +'<div>'
+                            +'<h1>Valor del Servicio: $'+valorServicioAlmacenado+'</h1>'
                        +'</div>';
     var contenidoParaImprimir = impresionHTML;
     var ventanaImpresion = window.open('', 'PRINT', 'height=800,width=1000');
@@ -291,7 +276,7 @@ async function actualizarDatosTicket(){
     ventanaImpresion.print();
     ventanaImpresion.close();
     return true;
-}*/
+}
 
 function buscar(){
 	var tableReg = document.getElementById('datatablesSimple1');
