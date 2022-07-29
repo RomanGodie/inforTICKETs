@@ -81,7 +81,7 @@ public class TicketeDaoImp implements TicketeDao{
 
     @Override
     public List<Tickete> readTodosLosTicketesEnBaseDatosDirecto() {
-        String consulta = "SELECT * FROM tickete";
+        String consulta = "SELECT * FROM tickete ORDER BY idTicket DESC";
         return jdbcTemplate.query(consulta,(rs, rowNum) ->
                 new Tickete(
                         rs.getInt("idTicket"),
