@@ -185,28 +185,6 @@
                         <div class="card shadow mb-4">
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <div class="dataTable-top">
-                                        <div class="input-group">
-                                            <input id="txtBuscarNumeroIdentificacionPersona" class="form-control"
-                                                   type="text"
-                                                   placeholder="Buscar por numero de identificacion..."
-                                                   aria-describedby="btnBuscarCedula">
-                                            <button class="btn btn-secondary" id="btnBuscarCedula" type="button"
-                                                    onclick="buscarPersona()">Buscar
-                                            </button>
-                                            <script>
-                                        var x = document.getElementById("txtBuscarNumeroIdentificacionPersona");
-                                        x.addEventListener("keyup", function() {
-                                            if (event.keyCode === 13) {
-                                            event.preventDefault();
-                                                document.getElementById("btnBuscarCedula").click();
-                                            }
-                                        });
-
-
-                                            </script>
-                                        </div>
-                                    </div>
                                     <table class="table table-bordered" id="nuevaPersonaTable" width="100%"
                                            cellspacing="0">
                                         <tbody>
@@ -216,7 +194,19 @@
                                                 <b>*Numero Identificacion: </b>
                                             </td>
                                             <td>
-                                                <input type="text" id="txtNuevoNumeroIdentificacionPersona" required>
+                                                <div class="input-group">
+                                                <input type="text" id="txtNuevoNumeroIdentificacionPersona"
+                                                    placeholder="Digite identificacion...">
+                                                <script>
+                                                    var x = document.getElementById("txtNuevoNumeroIdentificacionPersona");
+                                                    x.addEventListener("keyup", function() {
+                                                        if (event.keyCode === 13) {
+                                                            event.preventDefault();
+                                                            buscarPersona();
+                                                        }
+                                                    });
+                                                </script>
+                                                </div>
                                             </td>
                                             </td>
                                             <td>

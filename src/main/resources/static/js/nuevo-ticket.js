@@ -4,7 +4,7 @@ var numeroTelefonico1Almacenado;
 var direccionResidenciaAlmacenada;
 
 async function buscarPersona(){
-    let numeroIdentificacionPersonaParaBuscar = document.getElementById('txtBuscarNumeroIdentificacionPersona').value;
+    let numeroIdentificacionPersonaParaBuscar = document.getElementById('txtNuevoNumeroIdentificacionPersona').value;
 
     const peticion = await fetch('persona/'+numeroIdentificacionPersonaParaBuscar, {
                 method: 'GET',
