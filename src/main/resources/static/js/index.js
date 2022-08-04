@@ -139,10 +139,15 @@ async function consultarTicket(id){
                                           '<div class="card-body">'+
                                                '<b>Nivel de Prioridad</b>'+
                                                '<input type="text" class="dataTable-input" id="txtNivelPrioridad" value="'+
-                                                        ticketSelect.nivelPrioridad+'" autocomplete="on">'+
+                                                        ticketSelect.nivelPrioridad+'" disabled="true">'+
                                                '<b>Estado del Ticket</b>'+
-                                			   '<input type="text" class="dataTable-input" id="txtEstadoTicket" value="'+
-                                                        ticketSelect.estadoTicket+'" autocomplete="on">'+
+                                			   '<select type="text" class="dataTable-input" id="txtEstadoTicket">'+
+                                                        '<option value="'+ticketSelect.estadoTicket+
+                                                                '" selected disabled hidden>'+
+                                                                ticketSelect.estadoTicket+'</option>'+
+                                                        '<option value="Abierto">Abierto</option>'+
+                                                        '<option value="Cerrado">Cerrado</option>'+
+                                               '</select>'+
                                                '<b>Valor del servicio</b>'+
                                 			   '<input type="text" class="dataTable-input" id="txtValorServicio" value="'+
                                                         ticketSelect.valorServicio+'">'+

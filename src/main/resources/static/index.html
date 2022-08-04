@@ -116,6 +116,10 @@
 
                     <!--Modal Footer-->
                     <div class="modal-footer">
+                        <button id="btnNuevoTicket" type="button" href="#modalNuevoTicket" class="btn btn-secondary"
+                                data-toggle="modal" data-dismiss="modal">
+                            Nuevo Ticket
+                        </button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                         <button type="button" href="#" onclick="actualizarDatosPersona()" class="btn btn-secondary"
                                 data-dismiss="modal">
@@ -154,12 +158,16 @@
 
                     <!--Modal Footer-->
                     <div class="modal-footer">
-                        <button type="button" href="#" onclick="actualizarDatosTicket()" class="btn btn-secondary"
+                        <button type="button" href="#" onclick="#" class="btn btn-secondary"
                                 data-dismiss="modal">
-                            Guardar
+                            Impresion Sencilla
                         </button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="location.reload()">
                             Cancelar
+                        </button>
+                        <button type="button" href="#" onclick="actualizarDatosTicket()" class="btn btn-secondary"
+                                data-dismiss="modal">
+                            Guardar
                         </button>
                     </div>
                     <!--End of Modal Footer-->
@@ -267,15 +275,11 @@
                         <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="location.reload()">
                             Cancelar
                         </button>
-                        <button id="btnGuardarPersonaNueva" type="button" class="btn btn-secondary" data-dismiss="modal"
-                                onclick="actualizarOCrearPersona()">
-                            Guardar
-                        </button>
                         <button id="btnGuardarOActualizarPrsonaYContinuarNuevoTicket" type="button"
                                 href="#modalNuevoTicket" onclick="actualizarOCrearPersona()"
                                 class="btn btn-secondary"
                                 data-toggle="modal" data-dismiss="modal">
-                            Continuar...
+                            Guardar y Continuar...
                         </button>
                     </div>
                     <!--End of Modal Footer-->
@@ -324,11 +328,14 @@
                                         <div class="card mb-4">
                                             <div class="card-body">
                                                 <b>Nivel de Prioridad</b>
-                                                <input type="text" class="dataTable-input" id="txtNuevoNivelPrioridad"
-                                                       autocomplete="on">
+                                                <select class="dataTable-input selector" id="txtNuevoNivelPrioridad">
+                                                    <option value="Alta">Alta</option>
+                                                    <option value="Media" selected>Media</option>
+                                                    <option value="Baja">Baja</option>
+                                                </select>
                                                 <b>Estado del Ticket</b>
                                                 <input type="text" class="dataTable-input" id="txtNuevoEstadoTicket"
-                                                       autocomplete="on">
+                                                       autocomplete="on" value="Abierto" disabled="true">
                                             </div>
                                         </div>
                                     </div>
@@ -340,11 +347,11 @@
 
                     <!--Modal Footer-->
                     <div class="modal-footer">
-                        <button type="button" href="#" onclick="crearNuevoTicket()" class="btn btn-secondary">
-                            Guardar
-                        </button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="location.reload()">
                             Cancelar
+                        </button>
+                        <button type="button" href="#" onclick="crearNuevoTicket()" class="btn btn-secondary">
+                            Guardar
                         </button>
                     </div>
                     <!--End of Modal Footer-->
